@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Foosball</title>
+
+    <link rel="stylesheet" href="foosball.css">
+
+  </head>
+  <body>
+
+    <div id="container">
+    </div>
+
+    <script type="text/html" id="container-template">
+      <div id="header">
+        <h3></h3>
+      </div>
+
+      <div id="content">
+      </div>
+
+      <div id="footer">
+      </div>
+    </script>
+
+    <script type="text/html" id="navigation-template">
+      <ul class="navigation">
+      <li data-ref="new-game">New Game</li>
+      <li data-ref="history">History</li>
+      <li data-ref="rankings">Rankings</li>
+      </ul>
+    </script>
+
+    <script type="text/html" id="new-game-template">
+      <form id="new-game">
+        <div class="top-container">
+        <div class="top-content">
+          <input type="text" id="player1" placeholder="John Doe">
+          <div class="controls">
+            <div class="subtract" data-ref="score1">&#8210;</div>
+            <div class="score" id="score1">0</div>
+            <div class="add" data-ref="score1">&#65291;</div>
+          </div>
+        </div>
+        </div>
+        <div class="bottom-container">
+        <div class="bottom-content">
+          <div class="controls">
+            <div class="subtract" data-ref="score2">&#8210;</div>
+            <div class="score" id="score2">0</div>
+            <div class="add" data-ref="score2">&#65291;</div>
+          </div>
+          <input type="text" id="player2" placeholder="Jane Doe">
+        </div>
+        </div>
+      </form>
+    </script>
+
+    <script type="text/html" id="history-template">
+      <ul>
+        <% _.each(games, function(game, gameNumber) { %> 
+          <li data-game="<%= gameNumber %>"><%= game.player1 %> - <%= game.score1 %> vs  <%= game.score2 %> - <%= game.player2 %></li>
+        <% }); %>
+      </ul>
+    </script>
+
+    <script type="text/html" id="rankings-template">
+      Ranking system: <select id="system">
+        <% _.each(ratings, function(ratings, systemName) { %> 
+          <option value="<%= systemName %>"><%= systemName %></option>
+        <% }); %>
+      </select>
+      <ol id="ratings-list">
+      </ol>
+    </script>
+
+    <script type="text/html" id="rankings-list-template">
+      <ol>
+        <% _.each(ratings, function(ratings) { %> 
+          <li><%= ratings.name %> [<%= Math.round(ratings.score) %>]</li>
+        <% }); %>
+      </ol>
+    </script>
+
+    <script type="text/html" id="footer-template">
+      <div data-action="cancel">Cancel</div>
+      <div data-action="done">Done</div>
+    </script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="jquery.min.js"></script>
+    <script src="underscore-min.js"></script>
+    <script src="backbone-min.js"></script>
+    <script src="ratings.js"></script>
+    <script src="foosball.js"></script>
+
+  </body>
+</html>
